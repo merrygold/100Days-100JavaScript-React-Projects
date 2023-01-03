@@ -1,13 +1,27 @@
-const number = document.querySelector(".count");
+let hex = document.querySelector('.count');
 
-const btn = document.querySelector(".generate");
+let btn = document.querySelector('.reset');
 
-btn.addEventListener("click", generateNumber);
 
-function generateNumber() {
-    // Math.random is a inbuilt method which returns a random value between 0 to 1 (for example 0.83746, 0.83847, 0.56233 ...)
-    // So multiplying by 100 will give us a value between 0 to 99.99999 and to include 100 we will need to add 1 in the end. 
-    const rand = Math.floor(Math.random() * 100 + 1);
-    // Since Math.random gives us a lot of decimal numbers we will use Math.floor to remove the decimals and will get a whole number.
-    number.innerHTML = rand;
+const changeColor = () => {
+    // Hex color code looks like this #ff80ff (for pink color)
+    // Since we know hex color code is made up off letters and numbers but in a string form.
+    // Math.random() will give us a random value between o to 1
+ 
+    // .toString() will convert that random number to a string.
+    // Now that we got the string but it will only show a number like 0.028457. Since we also need alphabets, So we will pass16 inside() to include values between(0 - 9 && a - f).
+    
+    // So now the output will look something like this 0.25bac78s3f. But we only need 6 digits to make a hex code, So we will use .substring(2,8) which will neglect the first 
+    // two elements and give us a value up untill the 8th index which will give us our required 6 digits to make a hex code (i.e. 25bac7 from above example).
+    const rand = Math.random().toString(16).substring(2, 8);
+
+    // Now we will target entire body and change it's backgroundColor to the randomly generated hex. 
+    document.body.style.backgroundColor ='#' + rand;
+    // we use # before hex code since that's how every hexcode looks like.
+    hex.innerHTML = "#" + rand;
 }
+
+// Since we are using the ES6 method for writing our function, We have declared the EventListener after the function definition.
+btn.addEventListener("click", changeColor);
+
+changeColor();
